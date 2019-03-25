@@ -1,0 +1,11 @@
+{
+    "author": "DrPepper",
+	"name": "NonioHandler",
+    "version": "1.0",
+    "description": "Removes Nonio popup so you can freely browse the news!",
+	"content_scripts": [{
+		"matches": ["<all_urls>"],
+		"js": ["script.js"]
+	}],
+    "manifest_version": 2
+  }
