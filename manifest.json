@@ -1,11 +1,22 @@
 {
-    "author": "DrPepper",
-	"name": "NonioHandler",
+    "author": "Pedro Ribeiro",
+	"name": "PepperSpray",
     "version": "1.0",
-    "description": "Removes Nonio popup so you can freely browse the news!",
+    "description": "NONIO and cookies blocker for various portuguese websites.",
+	"icons": {
+      "48": "assets/icon.png"
+    },
 	"content_scripts": [{
 		"matches": ["<all_urls>"],
 		"js": ["script.js"]
 	}],
+	"browser_action": {
+		"browser_style": true,
+		"default_title": "About the extension",
+		"default_popup": "index.html",
+		"default_icon": {
+			"48": "assets/icon.png"
+		}
+	}, 
     "manifest_version": 2
   }

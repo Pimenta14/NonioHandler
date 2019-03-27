@@ -130,7 +130,7 @@ function removeClass(elementName) {
 };
 
 function removeClassNONIO(targetList) {
-	console.log("Remove NONIO tentatives = " + nonioCalls);
+	//console.log("Remove NONIO tentatives = " + nonioCalls);
 	document.body.style.cssText = 'overflow:auto !important';
 	document.getElementsByTagName('html')[0].style.overflow = "auto";
 	nonioCalls = nonioCalls + 1;
@@ -139,8 +139,9 @@ function removeClassNONIO(targetList) {
 		try {
 			removeClass(targetList[i]);
 			successFlag = successFlag + 1;
+			console.log("NONIO removed")
 		} catch (error) {
-			console.log("Error catched || " + error);
+			console.log("" + error);
 		}
 	}
 
@@ -148,7 +149,7 @@ function removeClassNONIO(targetList) {
 		nonioCalls = 0;
 		successFlag = 0;
 	} else {
-		if (nonioCalls < 5) {
+		if (nonioCalls < 10) {
 			setTimeout(function() {
 				removeClassNONIO(targetList);
 			}, 500);
@@ -157,7 +158,7 @@ function removeClassNONIO(targetList) {
 };
 
 function removeIdNONIO(targetList) {
-	console.log("Remove NONIO tentatives = " + nonioCalls);
+	//console.log("Remove NONIO tentatives = " + nonioCalls);
 	document.body.style.cssText = 'overflow:auto !important';
 	document.getElementsByTagName('html')[0].style.overflow = "auto";
 	
@@ -167,8 +168,9 @@ function removeIdNONIO(targetList) {
 		try {
 			document.getElementById(targetList[i]).remove();
 			successFlag = successFlag + 1;
+			console.log("NONIO removed")
 		} catch (error) {
-			console.log("Error catched || " + error);
+			console.log("" + error);
 		}
 	}
 	
@@ -176,7 +178,7 @@ function removeIdNONIO(targetList) {
 		nonioCalls = 0;
 		successFlag = 0;
 	} else {
-		if (nonioCalls < 5) {
+		if (nonioCalls < 10) {
 			setTimeout(function() {
 				removeIdNONIO(targetList);
 			}, 500);
@@ -185,16 +187,17 @@ function removeIdNONIO(targetList) {
 };
 
 function removeCookies() {
-	console.log("Clean cookies calls = " + cookiesCalls);
+	//console.log("Clean cookies calls = " + cookiesCalls);
 	document.body.style.cssText = 'overflow:auto !important';
 	document.getElementsByTagName('html')[0].style.overflow = "auto";
 	cookiesCalls = cookiesCalls + 1;
 	try {
 		removeClass("qc-cmp-ui-container qc-cmp-showing");
 		cookiesCalls = 0;
+		console.log("COOKIES removed")
 	} catch (error) {
-			console.log("Error catched || " + error);
-		if (cookiesCalls < 5) {
+			console.log("" + error);
+		if (cookiesCalls < 10) {
 			setTimeout(function() {
 				removeCookies();
 			}, 500);
