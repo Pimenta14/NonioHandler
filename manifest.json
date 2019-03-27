@@ -3,6 +3,9 @@
 	"name": "PepperSpray",
     "version": "1.0",
     "description": "NONIO and cookies blocker for various portuguese websites.",
+	"permissions": [
+		"activeTab"
+	],
 	"icons": {
       "48": "assets/icon.png"
     },
