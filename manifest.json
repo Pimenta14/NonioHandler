@@ -1,7 +1,7 @@
 {
     "author": "Pedro Ribeiro",
 	"name": "PepperSpray",
-    "version": "1.0",
+    "version": "1.1",
     "description": "NONIO and cookies blocker for various portuguese websites.",
 	"permissions": [
 		"activeTab"
