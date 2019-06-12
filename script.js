@@ -187,7 +187,9 @@ function removeIdNONIO(targetList) {
 	var i;
 	for (i = 0; i < targetList.length; i++) {
 		try {
-			document.getElementById(targetList[i]).remove();
+			//console.log(document.querySelector('[id^=' + targetList[i] + ']').id);
+			document.getElementById(document.querySelector('[id^=' + targetList[i] + ']').id).remove();
+			//document.getElementById(targetList[i]).remove();
 			successFlag = successFlag + 1;
 			console.log("NONIO removed")
 		} catch (error) {
