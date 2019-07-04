@@ -3,6 +3,11 @@ var nonioCalls = 0;
 var cookiesCalls = 0;
 var successFlag = 0;
 
+var numCalls = 40;
+var timeoutVal = 0;
+
+var cookiesElem = "qc-cmp-ui-container qc-cmp-showing";
+
 removeNonio();
 
 function removeNonio() {
@@ -154,6 +159,7 @@ function removeClassNONIO(targetList) {
 	//console.log("Remove NONIO tentatives = " + nonioCalls);
 	document.body.style.cssText = 'overflow:auto !important';
 	document.getElementsByTagName('html')[0].style.overflow = "auto";
+	
 	nonioCalls = nonioCalls + 1;
 	var i;
 	for (i = 0; i < targetList.length; i++) {
@@ -170,10 +176,10 @@ function removeClassNONIO(targetList) {
 		nonioCalls = 0;
 		successFlag = 0;
 	} else {
-		if (nonioCalls < 10) {
+		if (nonioCalls < numCalls) {
 			setTimeout(function() {
 				removeClassNONIO(targetList);
-			}, 500);
+			}, timeoutVal);
 		}	
 	}	
 };
@@ -187,9 +193,7 @@ function removeIdNONIO(targetList) {
 	var i;
 	for (i = 0; i < targetList.length; i++) {
 		try {
-			//console.log(document.querySelector('[id^=' + targetList[i] + ']').id);
 			document.getElementById(document.querySelector('[id^=' + targetList[i] + ']').id).remove();
-			//document.getElementById(targetList[i]).remove();
 			successFlag = successFlag + 1;
 			console.log("NONIO removed")
 		} catch (error) {
@@ -201,10 +205,10 @@ function removeIdNONIO(targetList) {
 		nonioCalls = 0;
 		successFlag = 0;
 	} else {
-		if (nonioCalls < 10) {
+		if (nonioCalls < numCalls) {
 			setTimeout(function() {
 				removeIdNONIO(targetList);
-			}, 500);
+			}, timeoutVal);
 		}
 	}
 };
@@ -213,17 +217,18 @@ function removeCookies() {
 	//console.log("Clean cookies calls = " + cookiesCalls);
 	document.body.style.cssText = 'overflow:auto !important';
 	document.getElementsByTagName('html')[0].style.overflow = "auto";
+	
 	cookiesCalls = cookiesCalls + 1;
 	try {
-		removeClass("qc-cmp-ui-container qc-cmp-showing");
+		removeClass(cookiesElem);
 		cookiesCalls = 0;
 		console.log("COOKIES removed")
 	} catch (error) {
 			console.log("" + error);
-		if (cookiesCalls < 10) {
+		if (cookiesCalls < numCalls) {
 			setTimeout(function() {
 				removeCookies();
-			}, 500);
+			}, timeoutVal);
 		}
 	}
 }
