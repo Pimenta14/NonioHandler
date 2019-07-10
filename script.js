@@ -1,10 +1,11 @@
 var target = "";
 var nonioCalls = 0;
 var cookiesCalls = 0;
-var successFlag = 0;
+var successFlagNonio = 0;
+var successFlagCookies = 1;
 
 var numCalls = 40;
-var timeoutVal = 0;
+var timeoutVal = 300;
 
 var cookiesElem = "qc-cmp-ui-container qc-cmp-showing";
 
@@ -165,16 +166,16 @@ function removeClassNONIO(targetList) {
 	for (i = 0; i < targetList.length; i++) {
 		try {
 			removeClass(targetList[i]);
-			successFlag = successFlag + 1;
+			successFlagNonio = successFlagNonio + 1;
 			console.log("NONIO removed")
 		} catch (error) {
 			console.log("" + error);
 		}
 	}
 
-	if (successFlag >= targetList.length) {
+	if (successFlagNonio >= targetList.length) {
 		nonioCalls = 0;
-		successFlag = 0;
+		successFlagNonio = 0;
 	} else {
 		if (nonioCalls < numCalls) {
 			setTimeout(function() {
@@ -194,16 +195,16 @@ function removeIdNONIO(targetList) {
 	for (i = 0; i < targetList.length; i++) {
 		try {
 			document.getElementById(document.querySelector('[id^=' + targetList[i] + ']').id).remove();
-			successFlag = successFlag + 1;
+			successFlagNonio = successFlagNonio + 1;
 			console.log("NONIO removed")
 		} catch (error) {
 			console.log("" + error);
 		}
 	}
 	
-	if (successFlag >= targetList.length) {
+	if (successFlagNonio >= targetList.length) {
 		nonioCalls = 0;
-		successFlag = 0;
+		successFlagNonio = 0;
 	} else {
 		if (nonioCalls < numCalls) {
 			setTimeout(function() {
@@ -221,10 +222,11 @@ function removeCookies() {
 	cookiesCalls = cookiesCalls + 1;
 	try {
 		removeClass(cookiesElem);
+		successFlagCookies = 0;
 		cookiesCalls = 0;
 		console.log("COOKIES removed")
 	} catch (error) {
-			console.log("" + error);
+		console.log("" + error);
 		if (cookiesCalls < numCalls) {
 			setTimeout(function() {
 				removeCookies();
