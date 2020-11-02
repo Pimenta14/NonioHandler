@@ -1,8 +1,11 @@
 var target = "";
+var adpop = "";
 var nonioCalls = 0;
 var cookiesCalls = 0;
+var adpopCalls = 0;
 var successFlagNonio = 0;
 var successFlagCookies = 1;
+var successFlagAd = 0;
 
 var numCalls = 40;
 var timeoutVal = 300;
@@ -46,8 +49,10 @@ function removeNonio() {
 
 	if (document.URL.indexOf("dn.pt") >= 0) {
 		removeCookies();
-		target = ["tp-modal", "tp-backdrop tp-active"];
-		removeClassNONIO(target);
+		target = "/content";
+		adpop = ["fc-ab-root"]
+		removeAdPopup(adpop)
+		removeNONIOGlobalmedia(target);
 	} 
 
 	if (document.URL.indexOf("expresso.pt") >= 0) {
@@ -64,8 +69,10 @@ function removeNonio() {
 
 	if (document.URL.indexOf("jn.pt") >= 0) {
 		removeCookies();
-		target = ["tp-modal", "tp-backdrop tp-active"];	
-		removeClassNONIO(target);
+		target = "/content";	
+		adpop = ["fc-ab-root"]
+		removeAdPopup(adpop)
+		removeNONIOGlobalmedia(target);
 	} 
 
 	if (document.URL.indexOf("jornaldenegocios.pt") >= 0) {
@@ -146,8 +153,10 @@ function removeNonio() {
 
 	if (document.URL.indexOf("ojogo.pt") >= 0) {
 		removeCookies();
-		target = ["tp-modal", "tp-backdrop tp-active"];	
-		removeClassNONIO(target);
+		target = "/content";	
+		adpop = ["fc-ab-root"]
+		removeAdPopup(adpop)
+		removeNONIOGlobalmedia(target);
 	};
 };
 
@@ -210,6 +219,57 @@ function removeIdNONIO(targetList) {
 			setTimeout(function() {
 				removeIdNONIO(targetList);
 			}, timeoutVal);
+		}
+	}
+};
+
+function removeAdPopup(adpopList) {
+	//console.log("Remove AdPop tentatives = " + adpopCalls);
+	document.body.style.cssText = 'overflow:auto !important';
+	document.getElementsByTagName('html')[0].style.overflow = "auto";
+	
+	adpopCalls = adpopCalls + 1;
+	var i;
+	for (i = 0; i < adpopList.length; i++) {
+		try {
+			removeClass(adpopList[i]);
+			successFlagAd = successFlagAd + 1;
+			console.log("Ad Pop-up removed")
+		} catch (error) {
+			console.log("" + error);
+		}
+	}
+
+	if (successFlagAd >= adpopList.length) {
+		adpopCalls = 0;
+		successFlagAd = 0;
+	} else {
+		if (adpopCalls < numCalls) {
+			setTimeout(function() {
+				removeAdPopup(adpopList);
+			}, timeoutVal);
+		}	
+	}
+};
+
+function removeNONIOGlobalmedia(targetGlobalmedia) {
+	//console.log("Remove NONIO tentatives = " + nonioGlobalmediaCalls);
+	if (!(document.querySelectorAll('iframe[src^="' + targetGlobalmedia + '"]')[0])) {
+		setTimeout(function() {
+			removeNONIOGlobalmedia(targetGlobalmedia);
+		}, timeoutVal);
+	}
+	else {
+		//document.body.style.cssText = 'overflow:auto !important';
+		//document.getElementsByTagName('html')[0].style.overflow = "auto";
+		document.documentElement.style = 'overflow: auto !important';
+		document.body.style = 'overflow: auto !important';
+		try {
+			//document.cookie.split(";").forEach(value => document.cookie = value.replace(/^ +/, "").replace(/=.*/, `=;expires=${new Date().toUTCString()};path=/`));
+			document.querySelectorAll('iframe[src^="' + targetGlobalmedia + '"]')[0].outerHTML = '';
+			console.log("NONIO removed")
+		} catch (error) {
+			console.log("" + error);
 		}
 	}
 };
